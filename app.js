@@ -23,6 +23,30 @@ app.get("/",function(req,res){
     res.render("welcome");
 });
 
+app.post("/",function(req,res){
+    const name=req.body.username;
+    User.findOne({username:name},function(err,user){
+       if(user)
+       {
+           console.log(req.body.password);
+           console.log(user.username);
+           if(req.body.password===user.password)
+           {
+               res.render("home");
+           }
+           else
+           {
+               res.render("welcome",{message:"Incorrect Password. Try Again."});
+           }
+       }
+       else
+       {
+           res.render("welcome",{message:"Incorrect username. Try Again. "});
+       }
+    });
+});
+
+
 app.get("/signup",function(req,res){
     res.render("signup");
 });
@@ -30,35 +54,7 @@ app.get("/signup",function(req,res){
 app.post("/signup",function(req,res){
 const newUser=new User({username:req.body.username,email:req.body.email,password:req.body.password});
 newUser.save();
-});
-
-app.post("/",function(req,res){
-    const name=req.body.username;
-    User.find({username:name},function(err,user){
-       if(!user)
-       {
-           if(req.body.password===user.password)
-           {
-               res.render("/home");
-           }
-           else
-           {
-               res.render("/",{message:"Incorrect Password"});
-           }
-       }
-       else
-       {
-           res.render("/",{message:"Incorrect username"});
-       }
-    });
-});
-
-app.get("/signup", function(req, res){
-    res.render("signup");
-});
-
-app.post("/signup", function(req, res){
-    console.log("registered");
+res.redirect("/");
 });
 
 app.listen(3000,function(){

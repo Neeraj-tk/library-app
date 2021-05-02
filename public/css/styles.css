@@ -7,6 +7,12 @@ height: 100%;
 font-family: 'Numans', sans-serif;
 }
 
+h6{
+    font-family: sans-serif;
+    color: white;
+    margin-top: 1.7em;
+}
+
 .container{
 height: 100%;
 align-content: center;
