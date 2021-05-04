@@ -41,7 +41,7 @@ app.post("/",function(req,res){
        }
        else
        {
-           res.render("welcome",{message:"Incorrect username. Try Again. "});
+           res.render("welcome",{message:"Incorrect username. Try Again."});
        }
     });
 });

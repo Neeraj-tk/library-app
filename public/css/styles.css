@@ -84,6 +84,59 @@ color: rgba(156, 212, 212, 0.877);
 .footer
 {
     text-align: center;
-    background-color: rgba(144, 227, 255, 0.548);
+    background-color: rgb(195, 227, 248);
+    /* background-color: rgba(144, 227, 255, 0.548); */
     color: rgba(102, 135, 145, 0.959);
+}
+
+.nav-home
+{
+    background-color: #416c8b;
+    height: 15%;
+    font-family: sans-serif;
+    color:white;
+}
+
+.brand
+{
+    font-size: 2rem;
+    margin-left: 1rem;
+    font-weight: bold;
+    /* color: rgb(204, 247, 250); */
+}
+
+.navig-links
+{
+    color: rgb(195, 227, 248);
+    font-size: 1.2rem;
+    margin-left: 0.5rem;
+}
+
+.hamburger
+{
+    border: black;
+}
+
+.drop-arrow
+{
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.drop-arrow:hover
+{
+    color: rgb(195, 227, 248);
+    margin-bottom: 1rem;
+}
+
+.drops:hover
+{
+    background-color: rgb(195, 227, 248);
+}
+
+.drops:onclick
+{
+    background-color: rgb(136, 181, 211);
+    color: yellow;
+    
 }
