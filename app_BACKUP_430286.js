@@ -47,6 +47,8 @@ app.post("/",function(req,res){
 });
 
 
+<<<<<<< HEAD
+=======
 app.get("/signup",function(req,res){
     res.render("signup");
 });
@@ -56,7 +58,9 @@ const newUser=new User({username:req.body.username,email:req.body.email,password
 newUser.save();
 res.redirect("/");
 });
+>>>>>>> 6cd0fa28dfc7c26652ff3656537f26716c7d73c0
 
 app.listen(3000,function(){
     console.log("server started");
 });
+//https://images.app.goo.gl/81DKxV9otHQth87z9
