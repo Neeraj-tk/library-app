@@ -2,6 +2,7 @@ const express=require("express");
 const bodyParser=require("body-parser");
 const ejs=require("ejs");
 const mongoose=require("mongoose");
+const https=require("https");
 
 mongoose.connect("mongodb://localhost:27017/librarydb");
 
@@ -28,11 +29,9 @@ app.post("/",function(req,res){
     User.findOne({username:name},function(err,user){
        if(user)
        {
-           console.log(req.body.password);
-           console.log(user.username);
            if(req.body.password===user.password)
            {
-               res.render("home");
+               res.redirect("/home/"+user.username);
            }
            else
            {
@@ -52,9 +51,39 @@ app.get("/signup",function(req,res){
 });
 
 app.post("/signup",function(req,res){
-const newUser=new User({username:req.body.username,email:req.body.email,password:req.body.password});
-newUser.save();
-res.redirect("/");
+   const newUser=new User({username:req.body.username,email:req.body.email,password:req.body.password});
+   newUser.save();
+   res.redirect("/");
+});
+
+app.get("/home/:username",function(req,res){
+    User.findOne({username:req.params.username},function(err,user){
+        if(user)
+        {
+            var favourites=user.favourites;
+            var toRead=user.toRead;
+        }
+        else
+        {
+            console.log("no user found in /home");
+        }
+    });
+    favArray=[];
+    toReadArray=[];
+    favourites.forEach(function(element){
+        https.get("https://www.googleapis.com/books/v1/volumes/"+element,function(res){
+            res.on("data",function(data){
+            var volume=JSON.parse(data);
+            const obj={title:volume.volumeInfo.title,
+            subtitle:volume.volumeInfo.subtitle,
+            authors:volume.volumeInfo.authors,
+            rating:volume.volumeInfo.averageRating,
+            image:volume.volumeInfo.imageLinks.thumbnail};
+            });
+            favArray.append(obj);
+        });
+    });
+    res.render("home",{username:req.params.username,favourites:favArray,toRead:toReadArray});
 });
 
 app.listen(3000,function(){
