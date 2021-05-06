@@ -57,35 +57,47 @@ app.post("/signup",function(req,res){
 });
 
 app.get("/home/:username",function(req,res){
-    User.findOne({username:req.params.username},function(err,user){
-        if(user)
-        {
-            var favourites=user.favourites;
-            var toRead=user.toRead;
-        }
-        else
-        {
-            console.log("no user found in /home");
-        }
-    });
-    favArray=[];
-    toReadArray=[];
-    favourites.forEach(function(element){
-        https.get("https://www.googleapis.com/books/v1/volumes/"+element,function(res){
-            res.on("data",function(data){
-            var volume=JSON.parse(data);
-            const obj={title:volume.volumeInfo.title,
-            subtitle:volume.volumeInfo.subtitle,
-            authors:volume.volumeInfo.authors,
-            rating:volume.volumeInfo.averageRating,
-            image:volume.volumeInfo.imageLinks.thumbnail};
-            });
-            favArray.append(obj);
-        });
-    });
+    // User.findOne({username:req.params.username},function(err,user){
+    //     if(user)
+    //     {
+    //         var favourites=user.favourites;
+    //         var toRead=user.toRead;
+    //     }
+    //     else
+    //     {
+    //         console.log("no user found in /home");
+    //     }
+    // });
+        favArray=[];
+        toReadArray=[];
+    // favourites.forEach(function(element){
+    //     https.get("https://www.googleapis.com/books/v1/volumes/"+element,function(res){
+    //         res.on("data",function(data){
+    //         var volume=JSON.parse(data);
+    //         const obj={title:volume.volumeInfo.title,
+    //         subtitle:volume.volumeInfo.subtitle,
+    //         authors:volume.volumeInfo.authors,
+    //         rating:volume.volumeInfo.averageRating,
+    //         image:volume.volumeInfo.imageLinks.thumbnail};
+    //         });
+    //         favArray.append(obj);
+    //     });
+    // });
     res.render("home",{username:req.params.username,favourites:favArray,toRead:toReadArray});
 });
 
+app.post("/home",function(req,res){
+    console.log("innnn");
+    const search=req.body.search;
+    console.log(search);
+    console.log(req.body.username);
+    https.get("https://www.googleapis.com/books/v1/volumes?q="+search,function(response){
+        response.on("data",function(data){
+            const results=JSON.parse(data);
+            res.render("search",{username:req.params.username,result:result});
+        });
+    });
+});
 app.listen(3000,function(){
     console.log("server started");
 });

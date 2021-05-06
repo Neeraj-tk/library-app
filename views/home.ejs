@@ -1,42 +1,18 @@
 <%-include("partials/header")-%>
-
-     <nav class="navbar navbar-expand-md nav-home">
-    <div class="navbar-brand brand">LibraryApp</div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-    
-          <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav mr-auto">
+<%-include("partials/navbar")-%>
+<img class="home-img" src="/bluebooks.jpg" alt="library photo">
+<div class="home-text">
+    <h1>WELCOME <%=username%></h1>
+    <h3>Get immersed in the world of books!</h3>
+</div>
+<div class="carousel-section">
+    <div class="carousel-section-header">
+        <h2>Recent</h2>
+    </div>
+    <div class="carousel-container">
         
-                <li class="nav-item">
-                    <a class="nav-link links navig-links" href="#">Favourites</a>
-                </li>
-
-                <li class="nav-item">
-                  <a class="nav-link links navig-links" href="#">To Read</a>
-                </li>
-              </ul>
-              <form class="form-inline">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle drop-arrow" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <!-- Dropdown --><i class="fas fa-search"></i>
-                </a>
-                <div class="dropdown-menu"  aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item drops" href="#">All</a>
-                  <a class="dropdown-item drops" href="#">Title</a>
-                  <a class="dropdown-item drops" href="#">Authors</a>
-                  <a class="dropdown-item drops" href="#">Subject</a>
-                </div>
-              </li>
-
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1">
-                </div>
-              </form>
-          </div>
-</nav> 
-
+    </div>
+</div>
 <%-include("partials/footer")-%>
 
 
