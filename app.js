@@ -17,6 +17,7 @@ const app=express();
 app.set('view engine','ejs');
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
 
 message="";
 
@@ -87,14 +88,12 @@ app.get("/home/:username",function(req,res){
 });
 
 app.post("/home",function(req,res){
-    console.log("innnn");
     const search=req.body.search;
-    console.log(search);
-    console.log(req.body.username);
-    https.get("https://www.googleapis.com/books/v1/volumes?q="+search,function(response){
+    https.get("https://www.googleapis.com/books/v1/volumes?q="+search+"&maxResults=1",function(response){
         response.on("data",function(data){
-            const results=JSON.parse(data);
-            res.render("search",{username:req.params.username,result:result});
+            const temp=(JSON.stringify(data));
+            console.log(temp);
+            // res.render("search",{username:req.params.username,result:result});
         });
     });
 });

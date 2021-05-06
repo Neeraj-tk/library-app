@@ -27,13 +27,34 @@
                   <a class="dropdown-item drops" href="#">Subject</a>
                 </div>
               </li> -->
-              <form id="searchbox" class="search-icon">
+              <form class="search-icon">
                 <div class="input-group form-group">
                     <div class="input-group-prepend">
-                        <button type="submit" name="" class="fa-icons buttons input-group-text"><i class="fas fa-search"></i></button>
+                        <button type="button" id="searchbox"  class="fa-icons buttons input-group-text"><i class="fas fa-search"></i></button>
                     </div>
-                    <input name="search" type="text" class="form-control" placeholder="search">
+                    <input name="search" id="search"type="text" class="form-control" placeholder="search">
                 </div>
               </form>
+              <script>
+              document.getElementById("searchbox").addEventListener("click", postData)
+              function postData(){
+              const search=document.getElementById("search").value;
+              const username=document.getElementById("username").innerText;
+              const data={username:username,search:search};
+              fetch("/home",
+              {
+                  method: "POST",
+                // no-cors, *cors, same-origin
+                  cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                  credentials: 'same-origin', // include, *same-origin, omit
+                  headers: {'Content-Type': 'application/json'},
+                  redirect: 'follow', // manual, *follow, error
+                  referrerPolicy: 'no-referrer',
+                  body: JSON.stringify(data)
+              })
+              .then(function(res){ console.log(res) })
+              .catch(function(res){ console.log(res) });
+              }
+              </script>
           </div>
 </nav> 
