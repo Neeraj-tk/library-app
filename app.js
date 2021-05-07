@@ -2,7 +2,7 @@ const express=require("express");
 const bodyParser=require("body-parser");
 const ejs=require("ejs");
 const mongoose=require("mongoose");
-const https=require("https");
+const axios=require("axios");
 
 mongoose.connect("mongodb://localhost:27017/librarydb");
 
@@ -16,8 +16,9 @@ const app=express();
 
 app.set('view engine','ejs');
 app.use(express.static("public"));
-app.use(bodyParser.urlencoded({extended:true}));
-app.use(bodyParser.json());
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 message="";
 
@@ -88,14 +89,15 @@ app.get("/home/:username",function(req,res){
 });
 
 app.post("/home",function(req,res){
-    const search=req.body.search;
-    https.get("https://www.googleapis.com/books/v1/volumes?q="+search+"&maxResults=1",function(response){
-        response.on("data",function(data){
-            const temp=(JSON.stringify(data));
-            console.log(temp);
-            // res.render("search",{username:req.params.username,result:result});
-        });
-    });
+    const search=req.body.search; 
+    axios.get('https://www.googleapis.com/books/v1/volumes?q='+search+'&maxResults=1')
+    .then(response => {
+    const data=response.data;
+    console.log(data.items[0]);
+  })
+  .catch(error => {
+    console.log(error);
+  });
 });
 app.listen(3000,function(){
     console.log("server started");
