@@ -1,4 +1,30 @@
 <%-include("partials/header")-%>
 <%-include("partials/navbar")-%>
-<h1>BYEEEEEE <%=username%> </h1>
+<div class='container'>
+    <div class='center list flex-column'>
+        <%for(var i=0; i<5; i++){%>
+      <div class='card search-card flex-row open'>
+        <img src='http://i.harperapps.com/covers/9780008108298/y450-293.jpg' class='search-book-img'>
+        <div class='flex-column info'>
+          <div class='title'>The Fellowship of the Ring</div>
+          <div class='author'>J.R.R. Tolkien</div>
+          <div class='=bottom summary'>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quod ratione impedit temporibus maiores autem aperiam assumenda exercitationem, quisquam nobis esse.
+          </div>
+        </div>
+        <div class='flex-column group'>
+          <div class='rating'>
+              Rating
+            <span class='current'>14</span> /
+            <span class='max'>30</span>
+          </div>
+          <div class='=bottom'>
+            <button type="button" id="readbook" class="read-btn buttons input-group-text"><i class="book-icon fas fa-book-open"></i></button>
+          </div>
+        </div>
+      </div>
+    <%}%>
+    </div>
+  </div>
+
 <%-include("partials/footer")-%>

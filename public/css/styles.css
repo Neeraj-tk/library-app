@@ -7,19 +7,24 @@ height: 100%;
 font-family: 'Numans', sans-serif;
 }
 
+body
+{
+    background-color: rgb(204, 242, 248);
+}
+
 h6{
     font-family: sans-serif;
     color: white;
     margin-top: 1.7em;
 }
 
-.container{
+.sign-container{
 height: 100%;
 align-content: center;
 position: relative;
 }
 
-.card{
+.sign-card{
 margin-right: 40%;
 height: 370px;
 margin-top: auto;
@@ -28,7 +33,7 @@ width: 400px;
 background-color: #416c8b!important;
 }
 
-.card-header h3{
+.sign-card-header h3{
     color: white;
     margin-top: 0.5em;
 }
@@ -95,6 +100,10 @@ color: rgba(156, 212, 212, 0.877);
     height: 15%;
     font-family: sans-serif;
     color:white;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; 
+    z-index: 1;
 }
 
 .brand
@@ -117,29 +126,6 @@ color: rgba(156, 212, 212, 0.877);
     border: black;
 }
 
-.drop-arrow
-{
-    color: white;
-    margin-bottom: 1rem;
-}
-
-.drop-arrow:hover
-{
-    color: rgb(195, 227, 248);
-    margin-bottom: 1rem;
-}
-
-.drops:hover
-{
-    background-color: rgb(195, 227, 248);
-}
-
-.drops:onclick
-{
-    background-color: rgb(136, 181, 211);
-    color: yellow;
-}
-
 .search-icon
 {
     margin-top: 1rem;
@@ -149,7 +135,7 @@ color: rgba(156, 212, 212, 0.877);
 {
     width: 100%;
     height: 75%;
-    filter: blur(4px);
+    filter: blur(10px);
 }
 
 .home-text
@@ -157,15 +143,95 @@ color: rgba(156, 212, 212, 0.877);
     /* background-color: rgb(0,0,0); Fallback color */
   /* background-color: rgba(0,0,0, 0.4);  */
   background-color: #c1d6e7a4; 
-  color: #ffffffaf;
+  color: #084952c9;
   font-weight: bold;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 2;
+  z-index: 0.5;
   width: 100%;
   padding: 20px;
-  text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+  font-weight: bold;
   /* border: 3px solid #f1f1f1; */
+}
+
+.search-card
+{
+    background-color: rgb(166, 218, 231);
+    margin: 2rem 10% 1rem 10%;
+    height: 15rem;
+}
+
+.search-book-img
+{
+    margin: 1rem ;
+}
+
+.title
+{
+    font-size: 2rem;
+    font-weight:bold;
+    font-family: sans-serif;
+    margin-top: 1rem;
+    color: rgba(13, 81, 99, 0.884);
+}
+.author
+{
+    font-size: 1.3rem;
+    font-family: sans-serif;
+    color: rgba(18, 99, 122, 0.836);
+}
+.summary
+{
+    font-size: 1.1rem;
+    font-family: sans-serif;
+    margin-top: 1rem;
+    color: rgba(20, 104, 128, 0.884);
+}
+.read-btn
+{
+    margin-right: 1rem;
+    margin-top: 7.3rem;
+    color: rgb(255, 255, 255);
+    background-color:rgba(64, 115, 131, 0.959);
+    width: 4rem;
+    height: 2.5rem;
+    border: 0;
+    padding: 0;
+    text-align: center;
+}
+.rating
+{
+    margin-top: 1rem;
+    margin-right: 1rem;
+    color: rgba(20, 104, 128, 0.884);
+    font-size: 1.1rem;
+}
+.book-icon
+{
+    margin-left: 1.4rem;
+}
+
+.carousel-card
+{
+    background-color: tomato;
+    height: 50%;
+    width: 60%;
+    margin-left: 5rem;
+}
+.display-carousel
+{
+    height: 30%;
+    background-color: violet;
+}
+.carousel-btn-l
+{
+    padding: 0;
+}
+.carousel-btn-r
+{
+    padding: 0;
 }

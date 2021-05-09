@@ -21,6 +21,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 message="";
+user="";
+searchResult=[];
 
 app.get("/",function(req,res){
     res.render("welcome");
@@ -93,12 +95,21 @@ app.post("/home",function(req,res){
     axios.get('https://www.googleapis.com/books/v1/volumes?q='+search+'&maxResults=1')
     .then(response => {
     const data=response.data;
-    console.log(data.items[0]);
+    searchResult=data.items;
+    user=req.body.username;
+    res.redirect("/search");
   })
   .catch(error => {
     console.log(error);
   });
 });
+
+app.get("/search", function(req,res){
+    
+    console.log("AAAAAAAAAAAAAaa");
+    res.render("search",{username:user, result:searchResult});
+})
+
 app.listen(3000,function(){
     console.log("server started");
 });
