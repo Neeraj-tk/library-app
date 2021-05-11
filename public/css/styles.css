@@ -100,10 +100,6 @@ color: rgba(156, 212, 212, 0.877);
     height: 15%;
     font-family: sans-serif;
     color:white;
-    position: fixed; /* Set the navbar to fixed position */
-    top: 0; /* Position the navbar at the top of the page */
-    width: 100%; 
-    z-index: 1;
 }
 
 .brand
@@ -176,7 +172,12 @@ color: rgba(156, 212, 212, 0.877);
     font-weight:bold;
     font-family: sans-serif;
     margin-top: 1rem;
+    margin-right: 1rem;
     color: rgba(13, 81, 99, 0.884);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 6rem;
+    max-width: 85%;
 }
 .author
 {
@@ -189,18 +190,23 @@ color: rgba(156, 212, 212, 0.877);
     font-size: 1.1rem;
     font-family: sans-serif;
     margin-top: 1rem;
+    margin-bottom: 1rem;
     color: rgba(20, 104, 128, 0.884);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 85%;
 }
 .read-btn
 {
-    margin-right: 1rem;
-    margin-top: 7.3rem;
     color: rgb(255, 255, 255);
     background-color:rgba(64, 115, 131, 0.959);
     width: 4rem;
     height: 2.5rem;
-    border: 0;
-    padding: 0;
+    position: absolute;
+    right:    1rem;
+    bottom:   1rem;
+    border: 0; 
+    padding: 0; 
     text-align: center;
 }
 .rating

@@ -2,25 +2,28 @@
 <%-include("partials/navbar")-%>
 <div class='container'>
     <div class='center list flex-column'>
-        <%for(var i=0; i<5; i++){%>
-      <div class='card search-card flex-row open'>
-        <img src='http://i.harperapps.com/covers/9780008108298/y450-293.jpg' class='search-book-img'>
+        <%for(var i=0; i<result.length; i++){%>
+        <div class='card search-card flex-row open'>
+        <%if(result[i].volumeInfo.imageLinks){%>
+            <img src=<%=result[i].volumeInfo.imageLinks.smallThumbnail%> class="search-book-img">
+        <%}else{%>
+            <img src="/noimage.jpg" class="search-book-img">
+        <%}%>
         <div class='flex-column info'>
-          <div class='title'>The Fellowship of the Ring</div>
-          <div class='author'>J.R.R. Tolkien</div>
+          <div class='title'><%=result[i].volumeInfo.title%></div>
+          <div class='author'><%=result[i].volumeInfo.authors%></div>
           <div class='=bottom summary'>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quod ratione impedit temporibus maiores autem aperiam assumenda exercitationem, quisquam nobis esse.
-          </div>
+            <%if(result[i].volumeInfo.description){%>
+                <%if(result[i].volumeInfo.description.length>130){%>
+                    <%=result[i].volumeInfo.description.substring(0,130)%>...
+                <%}else{%>
+                    <%=result[i].volumeInfo.description%>
+                <%}%>
+            <%}%>
+        </div>
         </div>
         <div class='flex-column group'>
-          <div class='rating'>
-              Rating
-            <span class='current'>14</span> /
-            <span class='max'>30</span>
-          </div>
-          <div class='=bottom'>
-            <button type="button" id="readbook" class="read-btn buttons input-group-text"><i class="book-icon fas fa-book-open"></i></button>
-          </div>
+          <a href=<%=result[i].volumeInfo.infoLink%> target="_blank" class="read-btn buttons input-group-text btn"><i class="book-icon fas fa-book-open"></i></a>
         </div>
       </div>
     <%}%>

@@ -23,6 +23,7 @@ app.use(express.json());
 message="";
 user="";
 searchResult=[];
+const apiKey="AIzaSyA2tu9f8id6wye8xUPpec2PxwRyIhm1aqw"
 
 app.get("/",function(req,res){
     res.render("welcome");
@@ -92,7 +93,8 @@ app.get("/home/:username",function(req,res){
 
 app.post("/home",function(req,res){
     const search=req.body.search; 
-    axios.get('https://www.googleapis.com/books/v1/volumes?q='+search+'&maxResults=1')
+    axios.get("https://www.googleapis.com/books/v1/volumes?q="+search+"&key="+apiKey+"&maxResults=10")
+    // axios.get('https://www.googleapis.com/books/v1/volumes?q='+search+'&maxResults=1');
     .then(response => {
     const data=response.data;
     searchResult=data.items;
@@ -106,7 +108,9 @@ app.post("/home",function(req,res){
 
 app.get("/search", function(req,res){
     
-    console.log("AAAAAAAAAAAAAaa");
+    console.log("in searchhhhh");
+    // res.render("search")
+    // res.sendFile(__dirname+"/search.ejs");
     res.render("search",{username:user, result:searchResult});
 })
 

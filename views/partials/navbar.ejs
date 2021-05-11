@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md nav-home">
-    <div class="navbar-brand brand">LibraryApp</div>
+    <a class="navbar-brand brand" href="/home">LibraryApp</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
@@ -27,7 +27,7 @@
                   <a class="dropdown-item drops" href="#">Subject</a>
                 </div>
               </li> -->
-              <form class="search-icon">
+              <form class="search-icon" action="/home" method="POST">
                 <div class="input-group form-group">
                     <div class="input-group-prepend">
                         <button type="button" id="searchbox"  class="fa-icons buttons input-group-text"><i class="fas fa-search"></i></button>
@@ -35,7 +35,7 @@
                     <input name="search" id="search"type="text" class="form-control" placeholder="search">
                 </div>
               </form>
-              <script>
+              <!-- <script>
               document.getElementById("searchbox").addEventListener("click", postData)
               function postData(){
               const search=document.getElementById("search").value;
@@ -55,6 +55,6 @@
               .then(function(res){ res.render() })
               .catch(function(res){ console.log(res) });
               }
-              </script>
+              </script> -->
           </div>
 </nav> 
