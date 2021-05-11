@@ -3,14 +3,10 @@ const bodyParser=require("body-parser");
 const ejs=require("ejs");
 const mongoose=require("mongoose");
 const axios=require("axios");
-
-mongoose.connect("mongodb://localhost:27017/librarydb");
-
-const userSchema= new mongoose.Schema({username:String,
-password:String,
-email:String});
-
-const User=mongoose.model("User",userSchema);
+const session=require("express-session");
+const passport=require("passport");
+const passportLocalMongoose=require("passport-local-mongoose");
+const { Passport } = require("passport");
 
 const app=express();
 
@@ -20,34 +16,51 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+mongoose.connect("mongodb://localhost:27017/librarydb",{ useNewUrlParser: true , useUnifiedTopology: true });
+
+const userSchema= new mongoose.Schema({username:String,
+password:String,
+email:String});
+userSchema.plugin(passportLocalMongoose);
+
+const User=mongoose.model("User",userSchema);
+
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 message="";
 user="";
 searchResult=[];
-const apiKey="AIzaSyA2tu9f8id6wye8xUPpec2PxwRyIhm1aqw"
 
 app.get("/",function(req,res){
     res.render("welcome");
 });
 
 app.post("/",function(req,res){
-    const name=req.body.username;
-    User.findOne({username:name},function(err,user){
-       if(user)
-       {
-           if(req.body.password===user.password)
-           {
-               res.redirect("/home/"+user.username);
-           }
-           else
-           {
-               res.render("welcome",{message:"Incorrect Password. Try Again."});
-           }
-       }
-       else
-       {
-           res.render("welcome",{message:"Incorrect username. Try Again."});
-       }
-    });
+  const newUser=new User({username:req.body.username,password:req.body.password});
+  req.login(newUser,function(err){
+    if(err)
+    {
+      console.log(err);
+      res.redirect("/");
+    }
+    else
+    {
+      passport.authenticate("local")(req,res,function(){
+        res.redirect("/home");
+      }); 
+    }
+  })
 });
 
 
@@ -56,12 +69,24 @@ app.get("/signup",function(req,res){
 });
 
 app.post("/signup",function(req,res){
-   const newUser=new User({username:req.body.username,email:req.body.email,password:req.body.password});
-   newUser.save();
-   res.redirect("/");
-});
+    User.register({username:req.body.username,email:req.body.email},req.body.password,function(err,user){
+     if(err)
+     {
+       console.log(err);
+       res.redirect("/signup");
+     }
+     else
+     {
+       passport.authenticate("local")(req,res,function(){
+         res.redirect("/home");
+       });
+     }
 
-app.get("/home/:username",function(req,res){
+   });
+});
+favArray=[];
+        toReadArray=[];
+app.get("/home",function(req,res){
     // User.findOne({username:req.params.username},function(err,user){
     //     if(user)
     //     {
@@ -73,8 +98,23 @@ app.get("/home/:username",function(req,res){
     //         console.log("no user found in /home");
     //     }
     // });
-        favArray=[];
-        toReadArray=[];
+    if(req.isAuthenticated())
+    {
+      User.findById(req.user.id,function(err,foundUser){
+        if(err)
+        {
+          console.log(err);
+        }
+        else
+        {
+          res.render("home",{username:foundUser.username,favourites:favArray,toRead:toReadArray});
+        }
+      });
+    }
+    else
+    {
+      res.redirect("/");
+    }
     // favourites.forEach(function(element){
     //     https.get("https://www.googleapis.com/books/v1/volumes/"+element,function(res){
     //         res.on("data",function(data){
@@ -88,13 +128,11 @@ app.get("/home/:username",function(req,res){
     //         favArray.append(obj);
     //     });
     // });
-    res.render("home",{username:req.params.username,favourites:favArray,toRead:toReadArray});
 });
 
 app.post("/home",function(req,res){
     const search=req.body.search; 
-    axios.get("https://www.googleapis.com/books/v1/volumes?q="+search+"&key="+apiKey+"&maxResults=10")
-    // axios.get('https://www.googleapis.com/books/v1/volumes?q='+search+'&maxResults=1');
+    axios.get('https://www.googleapis.com/books/v1/volumes?q='+search+'&maxResults=1')
     .then(response => {
     const data=response.data;
     searchResult=data.items;
@@ -108,10 +146,8 @@ app.post("/home",function(req,res){
 
 app.get("/search", function(req,res){
     
-    console.log("in searchhhhh");
-    // res.render("search")
-    // res.sendFile(__dirname+"/search.ejs");
-    res.render("search",{username:user, result:searchResult});
+    console.log("AAAAAAAAAAAAAaa");
+    res.render("search",{ result:searchResult});
 })
 
 app.listen(3000,function(){

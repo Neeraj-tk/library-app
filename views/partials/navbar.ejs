@@ -48,11 +48,10 @@
                   cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
                   credentials: 'same-origin', // include, *same-origin, omit
                   headers: {'Content-Type': 'application/json'},
-                  redirect: 'follow', // manual, *follow, error
+                  redirect: 'manual', // manual, *follow, error
                   referrerPolicy: 'no-referrer',
                   body: JSON.stringify(data)
               })
-              .then(function(res){ res.render() })
               .catch(function(res){ console.log(res) });
               }
               </script> -->
