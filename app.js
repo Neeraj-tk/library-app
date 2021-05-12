@@ -132,7 +132,7 @@ app.get("/home",function(req,res){
 
 app.post("/home",function(req,res){
     const search=req.body.search; 
-    axios.get('https://www.googleapis.com/books/v1/volumes?q='+search+'&maxResults=1')
+    axios.get('https://www.googleapis.com/books/v1/volumes?q='+search+'&maxResults=10')
     .then(response => {
     const data=response.data;
     searchResult=data.items;
@@ -145,10 +145,12 @@ app.post("/home",function(req,res){
 });
 
 app.get("/search", function(req,res){
-    
-    console.log("AAAAAAAAAAAAAaa");
     res.render("search",{ result:searchResult});
-})
+});
+
+app.post("/search", function(req, res){
+  console.log(req.body);
+});
 
 app.listen(3000,function(){
     console.log("server started");

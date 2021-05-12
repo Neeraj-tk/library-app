@@ -23,11 +23,43 @@
         </div>
         </div>
         <div class='flex-column group'>
+          <button type="button" value="<%=result[i].id%>" onclick="addFav(event)" class="fav-btn btn btn-lg buttons">
+            <i class="book-icon fas fa-heart"></i>
+          </button>
           <a href=<%=result[i].volumeInfo.infoLink%> target="_blank" class="read-btn buttons input-group-text btn"><i class="book-icon fas fa-book-open"></i></a>
         </div>
       </div>
     <%}%>
     </div>
   </div>
-
+  <script>
+    function addFav(event)
+    {
+      var add=1;
+      if(event.target.classList.contains("favourited"))
+      {
+        event.target.classList.remove("favourited");
+        add=0;
+      }
+      else
+      {
+        event.target.classList.add("favourited");
+      }
+      console.log(event.currentTarget.value);
+      const data={id:event.currentTarget.value, add:add};
+      fetch("/search",
+                {
+                    method: "POST",
+                  // no-cors, *cors, same-origin
+                    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                    credentials: 'same-origin', // include, *same-origin, omit
+                    headers: {'Content-Type': 'application/json'},
+                    redirect: 'follow', // manual, *follow, error
+                    referrerPolicy: 'no-referrer',
+                    body: JSON.stringify(data)
+                })
+                .catch(function(res){ console.log(res) });
+              
+    }
+  </script>
 <%-include("partials/footer")-%>

@@ -49,7 +49,6 @@ border:0 !important;
 input:focus{
 outline: 0 0 0 0  !important;
 box-shadow: 0 0 0 0 !important;
-
 }
 
 .login_btn{
@@ -102,12 +101,16 @@ color: rgba(156, 212, 212, 0.877);
     color:white;
 }
 
-.brand
+.navbar-brand
 {
     font-size: 2rem;
     margin-left: 1rem;
     font-weight: bold;
-    /* color: rgb(204, 247, 250); */
+    color:white;
+}
+.navbar-brand:hover
+{
+    color: rgb(248, 239, 109);
 }
 
 .navig-links
@@ -125,6 +128,7 @@ color: rgba(156, 212, 212, 0.877);
 .search-icon
 {
     margin-top: 1rem;
+    outline: none;
 }
 
 .home-img
@@ -209,13 +213,40 @@ color: rgba(156, 212, 212, 0.877);
     padding: 0; 
     text-align: center;
 }
-.rating
+.fav-btn
 {
-    margin-top: 1rem;
-    margin-right: 1rem;
-    color: rgba(20, 104, 128, 0.884);
-    font-size: 1.1rem;
+    position: absolute;
+    right:    2rem;
+    top:   1rem;
+    color: white;
+    padding: 0; 
+    outline:none;
+    background-color: transparent;
+    border: 0;
+    cursor:pointer;
+    overflow: hidden;
+    box-shadow: 0 0 0 0
 }
+.fav-btn:hover
+{
+    color:white;
+    background-color: transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline: none;
+}
+.fav-btn:focus
+{
+    outline: 0 0 0 0  !important;
+    box-shadow: 0 0 0 0 !important;
+}
+.favourited
+{
+    color: rgb(253, 84, 121);
+}
+
 .book-icon
 {
     margin-left: 1.4rem;
@@ -223,10 +254,11 @@ color: rgba(156, 212, 212, 0.877);
 
 .carousel-card
 {
-    background-color: tomato;
+    background-color: rgb(166, 218, 231);
     height: 50%;
     width: 60%;
     margin-left: 5rem;
+    border: 0;
 }
 .display-carousel
 {

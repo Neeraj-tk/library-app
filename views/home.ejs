@@ -8,63 +8,52 @@
 
 <div class="home-carousel carousel-section">
     <div class="carousel-section-header">
-        <h2>Recent</h2>
+        <h2>Favourites</h2>
     </div>
     <section id="display-carousel">
         <div id="recent-display" class="carousel slide" data-interval="false">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-
                     <div class="row">
-                        <div class="col-md-4">
-                          <div class="carousel-card card mb-2">
-                            <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg">
-                            <div class="card-body">
-                              <h4 class="card-title">BOOK1</h4>
-                              <p class="card-text">blahblah</p>
-                              <a class="btn btn-primary">Button</a>
+                        <%for(i=0; i<4; i++){%>
+                            <div class="col-md-3">
+                                <div class="carousel-card card mb-2">
+                                  <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg">
+                                  <div class="card-body">
+                                    <h4 class="card-title">BOOKHOME</h4>
+                                    <p class="card-text">blahblah</p>
+                                    <a class="btn btn-primary">Button</a>
+                                  </div>
+                                </div>
                             </div>
-                          </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="carousel-card card mb-2">
-                              <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg"
-                                   alt="Card image cap">
-                              <div class="card-body">
-                                <h4 class="card-title">Card title</h4>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                                  card's content.</p>
-                                <a class="btn btn-primary">Button</a>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-md-4">
-                            <div class="carousel-card card mb-2">
-                                    <img width="10%" height="30%" src="https://www.joblo.com/assets/images/joblo/posters/2019/02/Dyow9RgX4AElAGN.jpg" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <i class="fas fa-play play_button" data-toggle="tooltip" data-placement="bottom" title="Play Trailer">
-                                        </i>
-                                      <h5 class="card-title">Toy Story 4</h5>
-                                             <span class="movie_info">2019</span>
-                                             <span class="movie_info float-right"><i class="fas fa-star"></i> 9 / 10</span>
-                                    </div>
-                
-                            </div>
-                          </div>
+                        <%}%>
                     </div>
                 </div>
+                <%for(i=4; i<20; i++){%>
                 <div class="carousel-item">
-                    <h3>Book2</h3>
-                    <p>Decription2</p> 
+                    <div class="row">
+                        <%for(j=0; j<4; j++,i++){%>
+                            <div class="col-md-3">
+                                <div class="carousel-card card mb-2">
+                                  <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg">
+                                  <div class="card-body">
+                                    <h4 class="card-title">BOOK1</h4>
+                                    <p class="card-text">blahblah</p>
+                                    <a class="btn btn-primary">Button</a>
+                                  </div>
+                                </div>
+                            </div>
+                        <%}%>
+                    </div>
                 </div>
-
+                <%}%>
             </div>
             <a class="carousel-btn-l carousel-control-prev" href="#recent-display" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" ></span>
-              </a>
-              <a class="carousel-btn-r carousel-control-next" href="#recent-display" role="button" data-slide="next">
+            </a>
+            <a class="carousel-btn-r carousel-control-next" href="#recent-display" role="button" data-slide="next">
                 <span class="carousel-control-next-icon" ></span>
-              </a>
+            </a>
         </div>
     </section>
 </div>
