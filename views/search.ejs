@@ -33,6 +33,9 @@
     </div>
   </div>
   <script>
+    console.log(fav);
+  </script>
+  <script>
     function addFav(event)
     {
       var add=1;
@@ -45,14 +48,13 @@
       {
         event.target.classList.add("favourited");
       }
-      console.log(event.currentTarget.value);
       const data={id:event.currentTarget.value, add:add};
       fetch("/search",
                 {
                     method: "POST",
                   // no-cors, *cors, same-origin
                     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-                    credentials: 'same-origin', // include, *same-origin, omit
+                    credentials: 'include', // include, *same-origin, omit
                     headers: {'Content-Type': 'application/json'},
                     redirect: 'follow', // manual, *follow, error
                     referrerPolicy: 'no-referrer',

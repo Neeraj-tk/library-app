@@ -29,7 +29,8 @@ mongoose.connect("mongodb://localhost:27017/librarydb",{ useNewUrlParser: true ,
 
 const userSchema= new mongoose.Schema({username:String,
 password:String,
-email:String});
+email:String,
+fav:[String]});
 userSchema.plugin(passportLocalMongoose);
 
 const User=mongoose.model("User",userSchema);
@@ -38,8 +39,6 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-message="";
-user="";
 searchResult=[];
 
 app.get("/",function(req,res){
@@ -84,8 +83,7 @@ app.post("/signup",function(req,res){
 
    });
 });
-favArray=[];
-        toReadArray=[];
+
 app.get("/home",function(req,res){
     // User.findOne({username:req.params.username},function(err,user){
     //     if(user)
@@ -107,7 +105,7 @@ app.get("/home",function(req,res){
         }
         else
         {
-          res.render("home",{username:foundUser.username,favourites:favArray,toRead:toReadArray});
+          res.render("home",{username:foundUser.username,favourites:foundUser.fav});
         }
       });
     }
@@ -131,25 +129,55 @@ app.get("/home",function(req,res){
 });
 
 app.post("/home",function(req,res){
-    const search=req.body.search; 
+    if(req.isAuthenticated())
+    {
+      const search=req.body.search;
+      res.redirect("/search/"+search); 
+    }
+    else
+    {
+      res.redirect("/");
+    }
+});
+
+app.get("/search/:search", function(req,res){
+  if(req.isAuthenticated())
+  {
+    const search=req.params.search;
     axios.get('https://www.googleapis.com/books/v1/volumes?q='+search+'&maxResults=10')
     .then(response => {
     const data=response.data;
-    searchResult=data.items;
-    user=req.body.username;
-    res.redirect("/search");
+    res.render("search",{result:data.items,fav:req.user.fav});
   })
   .catch(error => {
     console.log(error);
   });
-});
-
-app.get("/search", function(req,res){
-    res.render("search",{ result:searchResult});
+  }
+  else
+  {
+    res.redirect("/");
+  }
 });
 
 app.post("/search", function(req, res){
-  console.log(req.body);
+  if(req.body.add===1)
+  {
+    User.updateOne({_id:req.user.id},{$push:{fav:req.body.id}},function(err){
+      if(err)
+      {
+        console.log(err);
+      }
+    });
+  }
+  else
+  {
+    User.updateOne({_id:req.user.id},{$pull:{fav:req.body.id}},function(err){
+      if(err)
+      {
+        console.log(err);
+      }
+    });
+  }
 });
 
 app.listen(3000,function(){
