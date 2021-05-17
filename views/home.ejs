@@ -18,11 +18,17 @@
                         <%for(i=0; i<4; i++){%>
                             <div class="col-md-3">
                                 <div class="carousel-card card mb-2">
-                                  <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg">
+                                    <%if(favourites[i].volumeInfo.imageLinks){%>
+                                        <img class="card-img-top" src=<%=favourites[i].volumeInfo.imageLinks.smallThumbnail%> class="search-book-img">
+                                    <%}else{%>
+                                        <img class="card-img-top" src="/noimage.jpg" class="search-book-img">
+                                    <%}%>
                                   <div class="card-body">
-                                    <h4 class="card-title">BOOKHOME</h4>
-                                    <p class="card-text">blahblah</p>
-                                    <a class="btn btn-primary">Button</a>
+                                    <p class="card-title">BOOKHOME</p>
+                                    <button type="button"  onclick="addFav(event)" class="fav-btn btn btn-lg buttons">
+                                        <i class="book-icon fas fa-heart"></i>
+                                      </button>
+                                      <a href=<%=favourites[i].volumeInfo.infoLink%> target="_blank" class="read-btn buttons input-group-text btn"><i class="book-icon fas fa-book-open"></i></a>
                                   </div>
                                 </div>
                             </div>

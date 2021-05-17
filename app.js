@@ -84,6 +84,7 @@ app.post("/signup",function(req,res){
    });
 });
 
+var favArray=[];
 app.get("/home",function(req,res){
     // User.findOne({username:req.params.username},function(err,user){
     //     if(user)
@@ -105,7 +106,16 @@ app.get("/home",function(req,res){
         }
         else
         {
-          res.render("home",{username:foundUser.username,favourites:foundUser.fav});
+          for(var i=0;i<foundUser.fav.length;i++){
+            axios.get("https://www.googleapis.com/books/v1/volumes/"+foundUser.fav[i])
+            .then(response => {
+            favArray.push(response.data);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+          }
+          res.render("home",{username:foundUser.username,favourites:favArray});
         }
       });
     }

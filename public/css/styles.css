@@ -9,7 +9,7 @@ font-family: 'Numans', sans-serif;
 
 body
 {
-    background-color: rgb(204, 242, 248);
+    background-color: #ccf2f8;
 }
 
 h6{
@@ -255,10 +255,22 @@ color: rgba(156, 212, 212, 0.877);
 .carousel-card
 {
     background-color: rgb(166, 218, 231);
-    height: 50%;
     width: 60%;
-    margin-left: 5rem;
+    height: 20rem;
+    /* margin-left: 5rem; */
     border: 0;
+}
+
+.card-img-top
+{
+    position: relative;
+    height: 80%;
+}
+
+.read-btn
+{
+    outline: 0 0 0 0  !important;
+    box-shadow: 0 0 0 0 !important;
 }
 .display-carousel
 {
