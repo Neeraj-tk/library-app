@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Numans');
+/* import url('https://fonts.googleapis.com/css?family=Numans'); */
 
 html,body{
 background-size: cover;
@@ -216,27 +216,28 @@ color: rgba(156, 212, 212, 0.877);
 .fav-btn
 {
     position: absolute;
-    right:    2rem;
-    top:   1rem;
+    right:    6rem;
+    bottom: 1rem;
     color: white;
-    padding: 0; 
+    padding: 0.2rem; 
     outline:none;
-    background-color: transparent;
+    background-color:rgba(64, 115, 131, 0.959);
     border: 0;
+    height: 2.5rem;
     cursor:pointer;
     overflow: hidden;
     box-shadow: 0 0 0 0
 }
-.fav-btn:hover
+/* .fav-btn:hover
 {
-    color:white;
+    color: white;
     background-color: transparent;
     background-repeat:no-repeat;
     border: none;
     cursor:pointer;
     overflow: hidden;
     outline: none;
-}
+} */
 .fav-btn:focus
 {
     outline: 0 0 0 0  !important;

@@ -24,12 +24,12 @@
         </div>
         <div class='flex-column group'>
           <%if(fav.includes(result[i].id)){%>
-            <button type="button" value="<%=result[i].id%>" onclick="addFav(event)" class="favourited fav-btn btn btn-lg buttons">
-              <i class="book-icon fas fa-heart"></i>
+            <button type="submit" value="<%=result[i].id%>" onclick="addFav(event)" class=" btn fav-btn btn-sm btn-default buttons">
+              REMOVE FROM FAVOURITES
             </button>
           <%}else{%>
-            <button type="button" value="<%=result[i].id%>" onclick="addFav(event)" class="fav-btn btn btn-lg buttons">
-              <i class="book-icon fas fa-heart"></i>
+            <button type="submit" value="<%=result[i].id%>" onclick="addFav(event)" class="btn fav-btn btn-sm btn-default buttons">
+              ADD TO FAVOURITES
             </button>
           <%}%>
           <a href=<%=result[i].volumeInfo.infoLink%> target="_blank" class="read-btn buttons input-group-text btn"><i class="book-icon fas fa-book-open"></i></a>
@@ -39,20 +39,19 @@
     </div>
   </div>
   <script>
-    console.log(fav);
-  </script>
-  <script>
     function addFav(event)
     {
       var add=1;
-      if(event.target.classList.contains("favourited"))
+      if(event.target.innerText=="REMOVE FROM FAVOURITES")
       {
-        event.target.classList.remove("favourited");
+        console.log("inside fav");
+        event.target.innerText="ADD TO FAVOURITES";
         add=0;
       }
       else
       {
-        event.target.classList.add("favourited");
+        console.log("adding fav");
+        event.target.innerText="REMOVE FROM FAVOURITES";
       }
       const data={id:event.currentTarget.value, add:add};
       fetch("/search",

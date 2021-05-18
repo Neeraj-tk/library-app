@@ -83,21 +83,8 @@ app.post("/signup",function(req,res){
 
    });
 });
-
-var favArray=[];
-app.get("/home",function(req,res){
-    // User.findOne({username:req.params.username},function(err,user){
-    //     if(user)
-    //     {
-    //         var favourites=user.favourites;
-    //         var toRead=user.toRead;
-    //     }
-    //     else
-    //     {
-    //         console.log("no user found in /home");
-    //     }
-    // });
-    if(req.isAuthenticated())
+app.get("/home",function(req,res){  
+  if(req.isAuthenticated())
     {
       User.findById(req.user.id,function(err,foundUser){
         if(err)
@@ -106,16 +93,27 @@ app.get("/home",function(req,res){
         }
         else
         {
-          for(var i=0;i<foundUser.fav.length;i++){
-            axios.get("https://www.googleapis.com/books/v1/volumes/"+foundUser.fav[i])
-            .then(response => {
-            favArray.push(response.data);
-          })
-          .catch(error => {
-            console.log(error);
-          });
+          var favArray=[];
+          if(foundUser.fav.length!=0)
+          {
+            for(var i=0;i<foundUser.fav.length;i++){
+              axios.get("https://www.googleapis.com/books/v1/volumes/"+foundUser.fav[i])
+              .then(response => {
+              favArray.push(response.data);
+              if(favArray.length===foundUser.fav.length)
+              {
+                res.render("home",{username:foundUser.username,favourites:favArray});
+              }
+            })
+            .catch(error => {
+              console.log(error);
+            });
           }
-          res.render("home",{username:foundUser.username,favourites:favArray});
+          }
+          else
+          {
+            res.render("home",{username:foundUser.username,favourites:favArray});
+          }
         }
       });
     }
@@ -123,19 +121,6 @@ app.get("/home",function(req,res){
     {
       res.redirect("/");
     }
-    // favourites.forEach(function(element){
-    //     https.get("https://www.googleapis.com/books/v1/volumes/"+element,function(res){
-    //         res.on("data",function(data){
-    //         var volume=JSON.parse(data);
-    //         const obj={title:volume.volumeInfo.title,
-    //         subtitle:volume.volumeInfo.subtitle,
-    //         authors:volume.volumeInfo.authors,
-    //         rating:volume.volumeInfo.averageRating,
-    //         image:volume.volumeInfo.imageLinks.thumbnail};
-    //         });
-    //         favArray.append(obj);
-    //     });
-    // });
 });
 
 app.post("/home",function(req,res){
