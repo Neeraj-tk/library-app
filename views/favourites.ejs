@@ -1,0 +1,57 @@
+<%-include("partials/header")-%>
+<%-include("partials/navbar")-%>
+<div class='container'>
+    <div class='center list flex-column'>
+        <%for(var i=0; i<favourites.length; i++){%>
+        <div class='card search-card flex-row open'>
+        <%if(favourites[i].volumeInfo.imageLinks){%>
+            <img src=<%=favourites[i].volumeInfo.imageLinks.smallThumbnail%> class="search-book-img">
+        <%}else{%>
+            <img src="/noimage.jpg" class="search-book-img">
+        <%}%>
+        <div class='flex-column info'>
+          <div class='title'><%=favourites[i].volumeInfo.title%></div>
+          <div class='author'><%favourites[i].volumeInfo.authors%></div>
+          <div class='=bottom summary'>
+            <%if(favourites[i].volumeInfo.description){%>
+                <%if(favourites[i].volumeInfo.description.length>130){%>
+                    <%=favourites[i].volumeInfo.description.substring(0,130)%>...
+                <%}else{%>
+                    <%=favourites[i].volumeInfo.description%>
+                <%}%>
+            <%}%>
+        </div>
+        </div>
+        <div class='flex-column group'>
+            <button type="submit" value="<%=favourites[i].id%>" onclick="remFav(event)" class=" btn fav-btn btn-sm btn-default buttons">
+              REMOVE FROM FAVOURITES
+            </button>
+          <a href=<%=favourites[i].volumeInfo.infoLink%> target="_blank" class="read-btn buttons input-group-text btn"><i class="book-icon fas fa-book-open"></i></a>
+        </div>
+      </div>
+    <%}%>
+    </div>
+  </div>
+  <script>
+    function remFav(event)
+    {
+      add=0;
+      console.log("remoeved");
+      const data={id:event.currentTarget.value, add:add};
+      fetch("/search",
+                {
+                    method: "POST",
+                  // no-cors, *cors, same-origin
+                    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                    credentials: 'include', // include, *same-origin, omit
+                    headers: {'Content-Type': 'application/json'},
+                    redirect: 'follow', // manual, *follow, error
+                    referrerPolicy: 'no-referrer',
+                    body: JSON.stringify(data)
+                })
+                .then(location.reload())
+                .catch(function(res){ console.log(res) });
+              
+    }
+  </script>
+<%-include("partials/footer")-%>

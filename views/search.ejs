@@ -44,13 +44,11 @@
       var add=1;
       if(event.target.innerText=="REMOVE FROM FAVOURITES")
       {
-        console.log("inside fav");
         event.target.innerText="ADD TO FAVOURITES";
         add=0;
       }
       else
       {
-        console.log("adding fav");
         event.target.innerText="REMOVE FROM FAVOURITES";
       }
       const data={id:event.currentTarget.value, add:add};

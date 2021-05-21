@@ -6,6 +6,7 @@
     <h3>Get immersed in the world of books!</h3>
 </div>
 
+<% if(favourites.length){%>
 <div class="home-carousel carousel-section">
     <div class="carousel-section-header">
         <h2>Favourites</h2>
@@ -24,18 +25,15 @@
                                         <img class="card-img-top" src="/noimage.jpg" class="search-book-img">
                                     <%}%>
                                   <div class="card-body">
-                                    <p class="card-title">BOOKHOME</p>
-                                    <button type="button"  onclick="addFav(event)" class="fav-btn btn btn-lg buttons">
-                                        <i class="book-icon fas fa-heart"></i>
-                                      </button>
-                                      <a href=<%=favourites[i].volumeInfo.infoLink%> target="_blank" class="read-btn buttons input-group-text btn"><i class="book-icon fas fa-book-open"></i></a>
+                                    <p class="card-title"><%=favourites[i].volumeInfo.title%></p>
+                                    <a href=<%=favourites[i].volumeInfo.infoLink%> target="_blank" class="read-btn buttons input-group-text btn"><i class="book-icon fas fa-book-open"></i></a>
                                   </div>
                                 </div>
                             </div>
                         <%}%>
                     </div>
                 </div>
-                <%for(i=4; i<20; i++){%>
+                <!-- <%for(i=4; i<20; i++){%>
                 <div class="carousel-item">
                     <div class="row">
                         <%for(j=0; j<4; j++,i++){%>
@@ -52,17 +50,18 @@
                         <%}%>
                     </div>
                 </div>
-                <%}%>
+                <%}%> -->
             </div>
-            <a class="carousel-btn-l carousel-control-prev" href="#recent-display" role="button" data-slide="prev">
+            <a class="carousel-btn-l carousel-control-prev carousel-arrows" href="#recent-display" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" ></span>
             </a>
-            <a class="carousel-btn-r carousel-control-next" href="#recent-display" role="button" data-slide="next">
+            <a class="carousel-btn-r carousel-control-next carousel-arrows" href="#recent-display" role="button" data-slide="next">
                 <span class="carousel-control-next-icon" ></span>
             </a>
         </div>
     </section>
 </div>
+<%}%>
 
 <%-include("partials/footer")-%>
 

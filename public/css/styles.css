@@ -286,3 +286,7 @@ color: rgba(156, 212, 212, 0.877);
 {
     padding: 0;
 }
+.carousel-arrows{
+    position: absolute;
+    top:100%;
+}

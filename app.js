@@ -123,6 +123,46 @@ app.get("/home",function(req,res){
     }
 });
 
+app.get("/favourites",function(req,res){
+  if(req.isAuthenticated())
+  {
+    User.findById(req.user.id,function(err,foundUser){
+      if(err)
+      {
+        console.log(err);
+      }
+      else
+      {
+        var favArray=[];
+        if(foundUser.fav.length!=0)
+        {
+          for(var i=0;i<foundUser.fav.length;i++){
+            axios.get("https://www.googleapis.com/books/v1/volumes/"+foundUser.fav[i])
+            .then(response => {
+            favArray.push(response.data);
+            if(favArray.length===foundUser.fav.length)
+            {
+              res.render("favourites",{username:foundUser.username,favourites:favArray});
+            }
+          })
+          .catch(error => {
+            console.log(error);
+          });
+        }
+        }
+        else
+        {
+          res.render("favourites",{username:foundUser.username,favourites:favArray});
+        }
+      }
+    });
+  }
+  else
+  {
+    res.redirect("/");
+  }
+});
+
 app.post("/home",function(req,res){
     if(req.isAuthenticated())
     {
